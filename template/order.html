@@ -1,0 +1,85 @@
+
+{% extends 'layouts/base.html' %}
+
+{% block content %}
+
+<!-- checkout-area start -->
+<form action="" method="post" novalidate id="orderForm">
+{% csrf_token %}
+    <div class="checkout-area ptb-100">
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-lg-8">
+                <div class="checkout-form form-style">
+                    <h3>Billing Details</h3>
+                        <div class="row">
+                            <div class="col-sm-6 col-12">
+                                <p>First Name *</p>
+                                <input required name="first_name" type="text">
+                            </div>
+                            <div class="col-sm-6 col-12">
+                                <p>Last Name *</p>
+                                <input type="text" required name="last_name">
+                            </div>
+                            <div class="col-sm-6 col-12">
+                                <p>Email Address *</p>
+                                <input type="email" required name="email">
+                            </div>
+                            <div class="col-sm-6 col-12">
+                                <p>Phone No. *</p>
+                                <input type="text" required name="phone">
+                            </div>
+                            <div class="col-12">
+                                <p>Country *</p>
+                                <input type="text" required name="country">
+                            </div>
+                            <div class="col-12">
+                                <p>Your Address *</p>
+                                <input type="text" required name="billing_address">
+                            </div>
+                            <div class="col-sm-6 col-12">
+                                <p>Postcode/ZIP</p>
+                                <input type="text" name="zipcode">
+                            </div>
+                            <div class="col-sm-6 col-12">
+                                <p>Town/City *</p>
+                                <input type="text" required name="city">
+                            </div>
+                        </div>
+            
+                </div>
+            </div>
+            <div class="col-lg-4">
+                <div class="order-area">
+                    <h3>Your Order</h3>
+                    <ul class="total-cost">
+                        {% for item in cartItems %}
+                        <li>{{ item.product_id.name }} <span class="pull-right">Rs {% widthratio  item.quantity 1 item.product_id.price %}</span></li>
+                        {% endfor %}
+                        <li>Total<span class="pull-right">Rs {{totalAmount}}</span></li>
+                    </ul>
+                    <ul class="payment-method">
+                        
+                        <li>
+                            <input disabled id="delivery" checked readonly type="checkbox">
+                            <label for="delivery">Cash on Delivery</label>
+                        </li>
+                    </ul>
+                    <button type="submit">Place Order</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</form>
+<!-- checkout-area end -->
+{% endblock %}
+
+{% block scripting %}
+<script>
+    $(document).ready(function(){
+        $("#orderForm").validate()
+    })
+</script>
+{% endblock %}

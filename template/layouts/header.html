@@ -1,0 +1,123 @@
+{% load static %}
+<header class="header-area">
+    <div class="header-top bg-2">
+        <div class="fluid-container">
+            <div class="row">
+                <div class="col-md-6 col-12">
+                    <ul class="d-flex header-contact">
+                        <li><i class="fa fa-phone"></i> +91 98779-47612</li>
+                        <li><i class="fa fa-envelope"></i> sahilrawat049@gmail.com</li>
+                    </ul>
+                </div>
+                <div class="col-md-6 col-12">
+                    <ul class="d-flex account_login-area">
+                        {% if request.session.authenticated %} 
+                        <li>
+                            <a href="javascript:void(0);"><i class="fa fa-user"></i> {{request.session.user.email}}<i class="fa fa-angle-down"></i></a>
+                            <ul class="dropdown_style">
+                                <li><a href="{% url 'myOrders' %}">My Orders</a></li>
+                                <li><a href="{% url 'cart' %}">View Cart</a></li>
+                                <li><a href="{% url 'logout' %}">Logout</a></li>
+                            </ul>
+                        </li>
+                        {% else %}
+                        
+                        <li><a href="{% url 'login' %}"> Login/Register </a></li> 
+                        {% endif %}
+                        
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="header-bottom">
+        <div class="fluid-container">
+            <div class="row">
+                <div class="col-lg-3 col-md-7 col-sm-6 col-6">
+                    <div class="logo">
+                        <a href="{% url 'home' %}">
+                    
+                    <span style="font-size:36px;font-weight:700;color:#524646">Food <span style="color:#ef4836">Hub</span></span>
+                    </a>
+                    </div>
+                </div>
+                <div class="col-lg-7 d-none d-lg-block">
+                    <nav class="mainmenu">
+                        <ul class="d-flex">
+                            {% url 'home' as home_url %}
+                            <li 
+                                {% if request.get_full_path == home_url %}
+                                    class="active" 
+                                {% endif %}>
+                                <a href="{% url 'home' %}">Home </a>
+                            </li> 
+                            {% url 'about' as about_url %}
+                            <li
+                                {% if request.get_full_path == about_url %}
+                                class="active" 
+                            {% endif %}>
+                                <a href="{% url 'about' %}">About</a>
+                            </li>
+                            {% url 'shop' as shop_url %}
+                             <li
+                                {% if request.get_full_path == shop_url %}
+                                class="active" 
+                            {% endif %}>
+                                 <a href="{% url 'shop' %}">Shop </a>
+                            </li>
+                             {% url 'contact' as contact_url %}
+                            <li
+                                {% if request.get_full_path == contact_url %}
+                                class="active" 
+                            {% endif %}>
+                                <a href="{% url 'contact' %}">Contact</a>
+                            </li>
+                        </ul>
+                    </nav>
+                </div>
+                <div class="col-md-4 col-lg-2 col-sm-5 col-4">
+                    <ul class="search-cart-wrapper d-flex">
+                        <li class="search-tigger"><a title="Search Product" href="javascript:void(0);">
+                            <i class="flaticon-search"></i></a>
+                        </li>
+                       
+                        <li>
+                            <a href="{% url 'cart' %}" title="View Cart"><i class="flaticon-shop"></i> </a>
+                            
+                        </li>
+                    </ul>
+                </div>
+                <div class="col-md-1 col-sm-1 col-2 d-block d-lg-none">
+                    <div class="responsive-menu-tigger">
+                        <a href="javascript:void(0);">
+                    <span class="first"></span>
+                    <span class="second"></span>
+                    <span class="third"></span>
+                    </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- responsive-menu area start -->
+        <div class="responsive-menu-area">
+            <div class="container">
+                <div class="row">
+                    <div class="col-12 d-block d-lg-none">
+                        <ul class="metismenu">
+                            <li class="sidemenu-items">
+                                <a class="has-arrow"  href="{% url 'home'%}">Home</a>
+                                
+                            </li>
+                            <li><a href="{% url 'about' %}">About</a></li>
+                            <li class="sidemenu-items">
+                                <a class="has-arrow" href="{% url 'shop' %}">Shop </a>
+                            </li>
+                            <li><a href="{% url 'contact' %}">Contact</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- responsive-menu area start -->
+    </div>
+</header>

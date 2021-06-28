@@ -1,0 +1,70 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="cart-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <form action="../../../../external.html?link=http://themepresss.com/tf/html/tohoney/cart">
+                    <table class="table-responsive cart-wrap">
+                        <thead>
+                            <tr>
+                                <th class="images">Image</th>
+                                <th class="product">Product</th>
+                                <th class="ptice">Price</th>
+                                <th class="quantity">Quantity</th>
+                                <th class="total">Total</th>
+                                <th class="remove">Remove</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if cartItems|length <= 0 %}
+                            <tr ><td colspan="6">
+                                No Cart item
+                            </td></td></tr>
+                            {% endif %}
+                            {% for item in cartItems %}
+                            <tr>
+                                <td class="images"><img src="{{item.product_id.image.url}}" alt="{{item.product_id.name}}"></td>
+                                <td class="product">{{item.product_id.name}}</td>
+                                <td class="ptice">Rs {{item.product_id.price}}</td>
+                                <td class="quantity cart-plus-minus">
+                                    <input type="text"  data-cart="{{ item.product_id.id}}" min="1" value="{{ item.quantity }}" />
+                                </td>
+                                {% csrf_token %}
+                                <td class="total">RS {% widthratio  item.quantity 1 item.product_id.price %}</td>
+                                <td class="remove removeFromCart"  data-cart="{{ item.product_id.id}}"><i class="fa fa-times"></i></td>
+                            </tr>
+                            {% endfor %}
+                            
+                        </tbody>
+                    </table>
+                    <div class="row mt-60">
+                        <div class="col-xl-4 col-lg-5 col-md-6 ">
+                            <div class="cartcupon-wrap">
+                                <ul class="d-flex">
+                                   
+
+                                    <li><a href="{% url 'shop' %}">Continue Shopping</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="col-xl-3 offset-xl-5 col-lg-4 offset-lg-3 col-md-6">
+                            <div class="cart-total text-right">
+                                <h3>Cart Totals</h3>
+                                <ul>
+                                    <li><span class="pull-left"> Total </span> Rs {{totalAmount}}</li>
+                                </ul>
+                                {% if cartItems|length > 0 %}
+                                <a  href="{% url 'order' %}">Proceed to Order</a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,74 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+ <!-- .breadcumb-area start -->
+ <div class="breadcumb-area bg-img-4 ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcumb-wrap text-center">
+                    <h2>Search</h2>
+                    <ul>
+                        <li><a href="{% url 'shop' %}">Shop</a></li>
+                        <li><span>Search</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- .breadcumb-area end -->
+
+  <!-- product-area start -->
+  <div class="product-area pt-100">
+    <div class="container">
+        <div class="tab-content">
+            <div class="tab-pane active" id="all">
+                {% if products|length <= 0 %}
+                <hr/>
+                <center><h5>No product found </h5></center>
+                <hr/>
+                {% endif %}
+                <ul class="row">
+                    
+                    {% for product in products %}
+                    <li class="col-xl-3 col-lg-4 col-sm-6 col-12">
+                        <div class="product-wrap">
+                            <div class="product-img">
+                                <span>Sale</span>
+                                <img src="{{product.image.url}}" alt="">
+                                
+                            </div>
+                            <div class="product-content">
+                                <h3><a href="{% url 'cart' %}">{{ product.name }}</a></h3>
+                               <div>
+                                <p class="pull-left product-price" >Rs {{ product.price }}
+                                    <del>Rs {{ product.mrp }}</del>
+                                </p>
+                           
+                            <div class="pull-right add-cart-btn"  >
+                                <ul>
+                                    <li><a data-cart="{{ product.id }}" data-authenticated="{{ request.session.authenticated }}" href="javascript:void(0)">
+                                        <i class="fa fa-shopping-bag"></i>
+                                        <span> Add to Cart</span>
+                                        </a>
+                                    </li>
+                                </ul>
+                            </div>
+                               </div>
+                                   
+                            </div>
+                        </div>
+                    </li>
+                    {% endfor %}
+                    
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+{% csrf_token%}
+<!-- product-area end -->
+{% endblock %}

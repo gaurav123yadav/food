@@ -1,0 +1,58 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="breadcumb-area bg-img-4 ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcumb-wrap text-center">
+                    <h2>My Orders </h2>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- .breadcumb-area end -->
+
+<div class="cart-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                
+                
+                    <table class="table-responsive cart-wrap">
+                        <thead>
+                            <tr>
+                                <th class="">Order Id</th>
+                                <th class="product">Amount</th>
+                                <th class="ptice">Payment</th>
+                                <th class="quantity">Address</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if orders|length <= 0 %}
+                            <tr ><td colspan="4">
+                                No Order found
+                            </td></td></tr>
+                            {% endif %}
+                            {% for order in orders %}
+                            <tr>
+                                <td><a href="{% url 'orderSuccess' orderId=order.id %}">#{{order.id}}</a></td>
+                                <td class="product">{{order.amount}} Rs</td>
+                                <td class="ptice">Cash on Delivery</td>
+                                <td class="quantity ">
+                                {{ order.billing_address}}
+                                </td>
+                            </tr>
+                            {% endfor %}
+                            
+                        </tbody>
+                    </table>
+                </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

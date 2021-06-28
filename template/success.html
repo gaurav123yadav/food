@@ -1,0 +1,77 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="breadcumb-area bg-img-4 ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="breadcumb-wrap text-center">
+                    <h2>Order Accepted </h2>
+                    <ul>
+                        <li><b>Order Id : #{{order.id}} </b></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- .breadcumb-area end -->
+
+<div class="cart-area ptb-100">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <a href="javascript:window.print()"><button style="padding:6px 3px"> Print Order</button></a>
+                <br/><br/>
+                <div> <strong>Order Id : </strong> #{{order.id}} </div>
+                <div> <strong>Payment : </strong> Cash on delivery </div>
+                <div> <strong>Total Amount : </strong> {{order.amount}} </div>
+                <div> <strong>Order will deliver to : </strong> {{order.first_name}} {{order.last_name}} 
+                <br/>
+                    {{order.billing_address}}<br/>
+                    {{order.city}}, {{order.county}} {{order.zipcode}}
+                </div>
+
+                <hr/>
+                <h5>Order Items</h5>
+                
+                    <table class="table-responsive cart-wrap">
+                        <thead>
+                            <tr>
+                                <th class="images">Image</th>
+                                <th class="product">Product</th>
+                                <th class="ptice">Price</th>
+                                <th class="quantity">Quantity</th>
+                                <th class="total">Total</th>
+                                
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% if orderItems|length <= 0 %}
+                            <tr ><td colspan="5">
+                                No Order item
+                            </td></td></tr>
+                            {% endif %}
+                            {% for item in orderItems %}
+                            <tr>
+                                <td class="images"><img src="{{item.product_id.image.url}}" alt="{{item.product_id.name}}"></td>
+                                <td class="product">{{item.product_id.name}}</td>
+                                <td class="ptice">Rs {{item.product_id.price}}</td>
+                                <td class="quantity ">
+                                {{ item.quantity }}"
+                                </td>
+                                {% csrf_token %}
+                                <td class="total">RS {% widthratio  item.quantity 1 item.product_id.price %}</td>
+                            </tr>
+                            {% endfor %}
+                            
+                        </tbody>
+                    </table>
+                    
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

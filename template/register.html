@@ -1,0 +1,56 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+
+{% block content %}
+
+    <!-- checkout-area start -->
+    <div class="account-area ptb-100">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3 col-md-8 offset-md-2 col-12">
+                    <div class="account-form form-style">
+                        <form method="POST" novalidate id="signupForm">
+                            <p>Email Address *</p>
+                            <input type="email" name="email" required>
+                            <p>Password *</p>
+                            <input type="password" id="password" name="password" required>
+                            <p>Confirm Password *</p>
+                            <input type="password" name="confirmPassword" required>
+                            {% csrf_token %}
+                            <button type="submit">Register</button>
+                        </form>
+                        <div class="text-center">
+                            <a href="{% url 'login' %}">Or Login</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- checkout-area end -->
+    {% endblock %}
+    {% block scripting %}
+    <script>
+        $(document).ready(function(){
+            $("#signupForm").validate({
+                rules: {
+                    email:{
+                        required: true,
+                        email: true,
+                        maxlength: 50
+                    },
+                    password:{
+                        minlength:6,
+                        required: true,
+                        maxlength:20,
+                    },
+                    confirmPassword:{
+                        minlength:6,
+                        maxlength:20,
+                        equalTo: "#password"
+                    }
+                }
+            })
+        })
+    </script>
+    {% endblock %}
